@@ -6,9 +6,7 @@ use self::lib::first;
 
 fn main() {
     // first();
-    let mut a = String::from("xx");
-    second(&mut a);
-    println!("{}", a);
+    test_ref();
 }
 
 fn second(a: &mut String) {
@@ -25,4 +23,35 @@ fn first() {
     println!("{:?}", a);
     println!("{:?}", a.pop().unwrap());
     println!("{:?}", a);
+}
+
+#[derive(Clone, Copy, Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn test_ref() {
+    let c = 'Q';
+
+    let ref m = c;
+    let n = &c;
+    assert_eq!(m, n);
+
+    let point = Point {x: 0, y: 0};
+    let _copy_of_x = {
+        let Point {x: ref ref_to_x, y: _} = point;
+        *ref_to_x
+    };
+    assert_eq!(_copy_of_x, 0);
+
+    let mut mut_point = point;
+    mut_point.x = 1;
+    println!("{:?} - {:?}", point, mut_point);
+
+    let tt = Some(3);
+    if let Some(ref x) = tt {
+        assert_eq!(*x, 3);
+    };
+    
 }
