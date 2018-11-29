@@ -3,16 +3,21 @@ mod lib;
 use std::mem;
 
 use self::lib::first;
+use self::lib::second;
 
 fn main() {
     // first();
-    test_ref();
+    // second();
 }
 
-fn second(a: &mut String) {
-    a.push_str("yy");
-    mem::replace(a, String::from("zzz"));
-    println!("{}", a);
+fn second() {
+    let mut list = second::List::new();
+    list.push(1).push(2).push(3);
+
+    let mut iter = list.iter();
+    let x = iter.next().unwrap();
+    let y = iter.next().unwrap();
+    let z = iter.next().unwrap();
 }
 
 fn first() {
